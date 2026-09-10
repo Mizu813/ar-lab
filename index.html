@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 id="tool-name">Nama Alat</h1>
+      <p class="info-text" id="tool-desc">Deskripsi alat akan muncul di sini.</p>
+    </div>
+
+    <div class="viewer-wrapper">
+      <div id="loading-indicator" class="loading">
+        <div class="spinner"></div>
+        <p>Memuat model 3D...</p>
+      </div>
+      
+      <div id="error-message" class="error" style="display: none;">
+        <p>❌ Gagal memuat model</p>
+        <p class="error-detail">Detail error</p>
+      </div>
+
+      <model-viewer 
+        id="ar-viewer"
+        alt="Model 3D Alat Laboratorium"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1">
+      </model-viewer>
+    </div>
+
+    <div class="controls">
+      <p class="usage-text" id="tool-usage">💡 Cara penggunaan</p>
+      <button class="ar-button" onclick="document.getElementById('ar-viewer').activateAR()">
+        View in AR
+      </button>
+    </div>
+
+    <div class="navigation">
+      <a id="prev-btn" class="nav-btn" href="#">← Sebelumnya</a>
+      <span id="page-indicator">1 / 5</span>
+      <a id="next-btn" class="nav-btn" href="#">Selanjutnya →</a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
