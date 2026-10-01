@@ -25,20 +25,39 @@
         <p class="error-detail">Detail error</p>
       </div>
 
-      <model-viewer 
-        id="ar-viewer"
-        alt="Model 3D Alat Laboratorium"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1">
+<!-- Tag model-viewer sekarang membungkus ar-hud -->
+      <model-viewer
+         id="ar-viewer"
+         alt="Model 3D Alat Laboratorium"
+         ar
+         ar-modes="webxr scene-viewer quick-look"
+         camera-controls
+         auto-rotate
+         shadow-intensity="1">
+
+         <!-- PINDAHKAN BLOK AR-HUD KE SINI -->
+         <div id="ar-hud" class="ar-hud" aria-label="Kontrol AR">
+           <div class="ar-toolbar">
+             <button id="toggle-hotspots" class="ar-control" type="button" aria-pressed="true">
+               <span aria-hidden="true"> </span> Info alat
+             </button>
+             <button id="switch-tool" class="ar-control" type="button">
+               <span aria-hidden="true"> </span> Ganti alat
+             </button>
+           </div>
+           <div id="hotspot-info" class="hotspot-info" hidden>
+             <strong id="hotspot-title"></strong>
+             <p id="hotspot-description"></p>
+             <button id="close-hotspot" class="close-hotspot" type="button" aria-label="Tutup informasi"> </button>
+           </div>
+         </div>
+         <!-- BATAS BLOK AR-HUD -->
+
       </model-viewer>
-    </div>
 
     <div class="controls">
       <p class="usage-text" id="tool-usage">💡 Cara penggunaan</p>
-      <button class="ar-button" onclick="document.getElementById('ar-viewer').activateAR()">
+      <button id="activate-ar" class="ar-button" type="button">
         View in AR
       </button>
     </div>
