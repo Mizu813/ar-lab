@@ -1,11 +1,11 @@
-* { margin: 0; padding: 0; box-sizing: border-box; } /* Ditambahkan * */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: system-ui, -apple-system, sans-serif;
   background: #f8f9fa;
   color: #333;
   overflow-x: hidden;
 }
-/* ... sisa kode CSS Anda biarkan sama persis ... */
+
 .container { 
     max-width: 500px; 
     margin: 0 auto; 
@@ -15,20 +15,9 @@ body {
     flex-direction: column;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 16px;
-}
-h1 { 
-    font-size: 1.5rem; 
-    margin-bottom: 8px; 
-    color: #1a73e8;
-}
-.info-text { 
-    font-size: 0.95rem; 
-    color: #555;
-    line-height: 1.4;
-}
+.header { text-align: center; margin-bottom: 16px; }
+h1 { font-size: 1.5rem; margin-bottom: 8px; color: #1a73e8; }
+.info-text { font-size: 0.95rem; color: #555; line-height: 1.4; }
 
 .viewer-wrapper {
     position: relative;
@@ -41,55 +30,39 @@ h1 {
 
 .viewer-wrapper model-viewer { position: relative; z-index: 1; }
 
-.ar-hud {
+.hotspot-tooltip {
     position: absolute;
-    inset: 12px;
-    z-index: 4;
-    display: block;
+    bottom: 40px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    max-width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
-.ar-toolbar {
-    display: none;
-    justify-content: space-between;
-    gap: 8px;
-    pointer-events: auto;
+.hotspot-tooltip strong { 
+    color: #66b2ff; 
+    margin-bottom: 4px; 
+    font-size: 14px;
 }
 
-.ar-active .ar-toolbar { display: flex; }
+.hotspot-tooltip p { white-space: normal; line-height: 1.4; font-weight: normal; }
 
-.ar-control, .close-hotspot {
-    border: 0;
-    border-radius: 999px;
-    background: rgba(25, 39, 61, 0.9);
-    color: #fff;
-    font: inherit;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 9px 12px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+.hotspot:hover .hotspot-tooltip,
+.hotspot.is-active .hotspot-tooltip {
+    opacity: 1;
 }
-
-.ar-control:active, .close-hotspot:active { transform: scale(0.97); }
-
-.hotspot-info {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 14px 44px 14px 14px;
-    border-radius: 12px;
-    color: #203047;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
-    pointer-events: auto;
-}
-
-.hotspot-info strong { display: block; margin-bottom: 4px; color: #1a73e8; }
-.hotspot-info p { font-size: 0.85rem; line-height: 1.4; }
-.hotspot-info[hidden] { display: none; }
-.close-hotspot { position: absolute; top: 8px; right: 8px; padding: 2px 9px; font-size: 1.2rem; line-height: 1.2; }
 
 .hotspot {
     width: 30px;
@@ -103,10 +76,30 @@ h1 {
     cursor: pointer;
     box-shadow: 0 2px 7px rgba(0,0,0,0.3);
     transition: transform 0.2s, background 0.2s;
+    position: relative; 
 }
 
 .hotspot:hover, .hotspot.is-active { background: #1557b0; transform: scale(1.12); }
 .hotspots-hidden .hotspot { display: none; }
+
+/* REVISI: Desain khusus untuk hotspot navigasi */
+.nav-hotspot {
+    background: #ff4757; /* Warna merah agar beda */
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-hotspot:hover, .nav-hotspot.is-active {
+    background: #ff6b81;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
 
 model-viewer {
     width: 100%;
@@ -125,9 +118,7 @@ model-viewer {
     z-index: 10;
 }
 
-.loading {
-    color: #666;
-}
+.loading { color: #666; }
 
 .spinner {
     width: 40px;
@@ -139,9 +130,7 @@ model-viewer {
     margin: 0 auto 12px;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .error {
     background: #fff;
@@ -150,22 +139,9 @@ model-viewer {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.error p:first-child {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #d32f2f;
-    margin-bottom: 8px;
-}
-
-.error-detail {
-    font-size: 0.85rem;
-    color: #666;
-}
-
-.controls {
-    text-align: center;
-    margin-bottom: 16px;
-}
+.error p:first-child { font-size: 1.1rem; font-weight: bold; color: #d32f2f; margin-bottom: 8px; }
+.error-detail { font-size: 0.85rem; color: #666; }
+.controls { text-align: center; margin-bottom: 16px; }
 
 .usage-text {
     font-size: 0.9rem;
@@ -208,14 +184,8 @@ model-viewer {
     transition: background 0.2s;
 }
 .nav-btn:hover { background: #e8f0fe; }
+#page-indicator { font-weight: bold; color: #555; font-size: 0.9rem; }
 
-#page-indicator { 
-    font-weight: bold; 
-    color: #555;
-    font-size: 0.9rem;
-}
-
-/* Mobile Optimization */
 @media (max-width: 480px) {
     .container { padding: 12px; }
     h1 { font-size: 1.3rem; }

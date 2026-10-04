@@ -25,7 +25,6 @@
         <p class="error-detail">Detail error</p>
       </div>
 
-<!-- Tag model-viewer sekarang membungkus ar-hud -->
       <model-viewer
          id="ar-viewer"
          alt="Model 3D Alat Laboratorium"
@@ -35,25 +34,17 @@
          auto-rotate
          shadow-intensity="1">
 
-         <!-- PINDAHKAN BLOK AR-HUD KE SINI -->
-         <div id="ar-hud" class="ar-hud" aria-label="Kontrol AR">
-           <div class="ar-toolbar">
-             <button id="toggle-hotspots" class="ar-control" type="button" aria-pressed="true">
-               <span aria-hidden="true"> </span> Info alat
-             </button>
-             <button id="switch-tool" class="ar-control" type="button">
-               <span aria-hidden="true"> </span> Ganti alat
-             </button>
-           </div>
-           <div id="hotspot-info" class="hotspot-info" hidden>
-             <strong id="hotspot-title"></strong>
-             <p id="hotspot-description"></p>
-             <button id="close-hotspot" class="close-hotspot" type="button" aria-label="Tutup informasi"> </button>
-           </div>
-         </div>
-         <!-- BATAS BLOK AR-HUD -->
+         <!-- Hotspot navigasi model diletakkan di koordinat tetap -->
+         <!-- Anda bisa menyesuaikan data-position agar pas di semua model -->
+         <button slot="hotspot-nav" class="hotspot nav-hotspot" data-position="0 0.4 0" data-normal="0 0.4 0">
+            <span class="nav-icon">↔</span>
+            <div class="hotspot-tooltip" id="switch-tooltip">
+                <strong>Ganti Alat</strong>
+            </div>
+         </button>
 
       </model-viewer>
+    </div>
 
     <div class="controls">
       <p class="usage-text" id="tool-usage">💡 Cara penggunaan</p>
@@ -64,7 +55,7 @@
 
     <div class="navigation">
       <a id="prev-btn" class="nav-btn" href="#">← Sebelumnya</a>
-      <span id="page-indicator">1 / 5</span>
+      <span id="page-indicator">1 / 6</span>
       <a id="next-btn" class="nav-btn" href="#">Selanjutnya →</a>
     </div>
   </div>
